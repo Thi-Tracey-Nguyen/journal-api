@@ -1,35 +1,5 @@
 import express from 'express'
-import mongoose from 'mongoose'
-
-const categories = ['Food', 'Coding', 'Work', 'Other']
-
-// const entries = [
-//   { category: 'Food', content: 'Hello!' },
-//   { category: 'Coding', content: 'Express is cool!' },
-//   { category: 'Work', content: 'Another day at the office' }
-// ]
-
-// Connect to a MongoDB via Mongoose
-mongoose.connect('mongodb+srv://cademo:cademo@cluster0.efrnd.mongodb.net/journal?retryWrites=true&w=majority')
-  .then((m) => console.log(m.connection.readyState === 1 ? 'Mongoose connected!' : 'Mongoose failed to connect'))
-  .catch((err) => console.log(err))
-
-// Create a Mongoose schema to define the structure of a model
-const entrySchema = new mongoose.Schema({
-  category: { type: String, required: true },
-  content: { type: String, required: true }
-})
-
-// Create a Mongoose model based on the schema
-const EntryModel = mongoose.model('Entry', entrySchema)
-
-// Categories
-const categorySchema = new mongoose.Schema({
-  name: { type: String, required: true }
-})
-
-const CategoryModel = mongoose.model('Category', categorySchema)
-
+import { CategoryModel, EntryModel } from './db'
 
 const app = express()
 const port = 4001
