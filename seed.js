@@ -12,13 +12,13 @@ const categories = [
   { name: 'Other'}
 ]
 
-await CategoryModel.insertMany(categories)
+const cats = await CategoryModel.insertMany(categories)
 console.log('Inserted categories')
 
 const entries = [
-  { category: 'Food', content: 'Hello!' },
-  { category: 'Coding', content: 'Express is cool!' },
-  { category: 'Work', content: 'Another day at the office' }
+  { category: cats[0], content: 'Hello!' },
+  { category: cats[1], content: 'Express is cool!' },
+  { category: cats[2], content: 'Another day at the office' }
 ]
 
 await EntryModel.insertMany(entries)

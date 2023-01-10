@@ -1,5 +1,5 @@
 import express from 'express'
-import { CategoryModel, EntryModel } from './db'
+import { CategoryModel, EntryModel } from './db.js'
 
 const app = express()
 const port = 4001
@@ -10,11 +10,11 @@ app.get('/', (request, response) => response.send({ info: 'Journal API 2023' }))
 
 app.get('/categories', async (req, res) => res.send(await CategoryModel.find()))
 
-app.get('/entries', async (req, res) => res.send(await EntryModel.find()))
+app.get('/entries', async (req, res) => res.send(await EntryModel.find().populate({ path: 'category', select: 'name' })))
 
 app.get('/entries/:id', async (req, res) => {
   try {
-    const entry = await EntryModel.findById(req.params.id)
+    const entry = await EntryModel.findById(req.params.id).populate({ path: 'category', select: 'name' })
     if (entry) {
       res.send(entry)
     } else {
